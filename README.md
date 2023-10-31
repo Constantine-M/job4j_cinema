@@ -1,3 +1,5 @@
+[![CI with Maven](https://github.com/Constantine-M/job4j_cinema/actions/workflows/gitActions.yml/badge.svg)](https://github.com/Constantine-M/job4j_cinema/actions/workflows/gitActions.yml)
+
 # job4j_cinema
 
 About project.
