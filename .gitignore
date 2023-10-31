@@ -1,3 +1,11 @@
+# According to https://github.com/ShamRail/job4j_requirements/wiki/02.-Структура-репозитория
+.idea
+*.iml
+.mvn
+mvnw
+mvnw.cmd
+target
+
 # Compiled class file
 *.class
 
