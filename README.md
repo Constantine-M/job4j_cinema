@@ -4,7 +4,10 @@
 
 About project.
 --------------
-This is website for buying tickets to the cinema. There are the schedule of sessions for each hall, film library (list of films with genre, year and age rating) on the website. If the User is registered, he can buy tickets. User can choose a specific place and row in the hall during the purchase of the ticket.
+This is website for buying tickets to the cinema. 
+There are the schedule of sessions for each hall, film library (list of films with genre, year and age rating) on the website. 
+If the User is registered, he can buy tickets. 
+User can choose a specific place and row in the hall during the purchase of the ticket.
 
 Tech stack.
 --------------
