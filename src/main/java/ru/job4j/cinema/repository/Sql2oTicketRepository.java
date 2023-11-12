@@ -40,4 +40,32 @@ public class Sql2oTicketRepository implements TicketRepository {
             return Optional.empty();
         }
     }
+
+    /**
+     * Данный метод ищет билет по номеру
+     * места и ряда.
+     *
+     * В методе
+     * {@link org.sql2o.Query#executeAndFetchFirst}
+     * мы указываем, какой тип хотим возвращать.
+     * Здесь мы указали, что нам требуется вернуть
+     * объект класса {@link Ticket} (первый из списка,
+     * потому что метод
+     * {@link org.sql2o.Query#executeAndFetch}
+     * возвращает список).
+     */
+    @Override
+    public Optional<Ticket> findByRowAndSeatNo(int rowNo, int seatNo) {
+        try (var connection = sql2o.open()) {
+            var sql = """
+                    select * from tickets
+                    where row_number = :rowNo and place_number = :seatNo
+                    """;
+            var query = connection.createQuery(sql)
+                    .addParameter("rowNo", rowNo)
+                    .addParameter("seatNo", seatNo);
+            var ticket = query.setColumnMappings(Ticket.COLUMN_MAPPING).executeAndFetchFirst(Ticket.class);
+            return Optional.ofNullable(ticket);
+        }
+    }
 }

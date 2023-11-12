@@ -7,4 +7,6 @@ import java.util.Optional;
 public interface TicketRepository {
 
     Optional<Ticket> save(Ticket ticket);
+
+    Optional<Ticket> findByRowAndSeatNo(int rowNo, int seatNo);
 }
