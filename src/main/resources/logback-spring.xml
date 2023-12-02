@@ -23,7 +23,7 @@
             Короче, RollingFileAppender - это то же самое что и FileAppender, но гибче.-->
     <appender name="RollingFile"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_FILE}/dream-job.log</file>
+        <file>${LOG_FILE}/cinematique.log</file>
 
         <!-- encoders are assigned the type
          ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->

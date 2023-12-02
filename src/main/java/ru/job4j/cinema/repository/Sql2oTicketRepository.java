@@ -14,12 +14,29 @@ public class Sql2oTicketRepository implements TicketRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(Sql2oTicketRepository.class);
 
+    /**
+     * Sql2o - небольшая и быстрая библиотека
+     * для доступа к реляционным базам данных.
+     * По сути это клиент для работы с БД.
+     */
     private final Sql2o sql2o;
 
     public Sql2oTicketRepository(Sql2o sql2o) {
         this.sql2o = sql2o;
     }
 
+    /**
+     * Данный метод сохраняет билет
+     * в базу данных.
+     *
+     * Т.к. билет должен быть уникальным,
+     * мы ловим исключение и вручную
+     * обрабатываем, чтобы на проде
+     * не получить ошибку. Таким
+     * образом, если билет будет уже
+     * куплен кем-то, то мы вернем
+     * пустой Optional.
+     */
     @Override
     public Optional<Ticket> save(Ticket ticket) {
         try (var connection = sql2o.open()) {

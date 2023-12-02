@@ -15,6 +15,11 @@ public class Sql2oUserRepository implements UserRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(Sql2oUserRepository.class);
 
+    /**
+     * Sql2o - небольшая и быстрая библиотека
+     * для доступа к реляционным базам данных.
+     * По сути это клиент для работы с БД.
+     */
     private final Sql2o sql2o;
 
 
@@ -22,6 +27,18 @@ public class Sql2oUserRepository implements UserRepository {
         this.sql2o = sql2o;
     }
 
+    /**
+     * Данный метод сохраняет пользователя
+     * в базу данных.
+     *
+     * Т.к. пользователь должен быть уникальным
+     * (уникальность достигается за счет
+     * уникальной почты), мы ловим исключение
+     * и вручную обрабатываем, чтобы на проде
+     * не получить ошибку. Таким образом,
+     * в случае, когда почта уже занята,
+     * мы вернем пустой Optional.
+     */
     @Override
     public Optional<User> save(User user) {
         try (var connection = sql2o.open()) {

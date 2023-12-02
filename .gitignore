@@ -1,10 +1,18 @@
 # According to https://github.com/ShamRail/job4j_requirements/wiki/02.-Структура-репозитория
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/main/**/js/
+!**/src/main/**/css/
+!**/src/test/**/target/
+*.db
+*.js
+
+### IntelliJ IDEA ###
 .idea
+*.iws
 *.iml
-.mvn
-mvnw
-mvnw.cmd
-target
+*.ipr
 
 # Compiled class file
 *.class

@@ -9,6 +9,11 @@ import java.util.Collection;
 @Repository
 public class Sql2oGenreRepository implements GenreRepository {
 
+    /**
+     * Sql2o - небольшая и быстрая библиотека
+     * для доступа к реляционным базам данных.
+     * По сути это клиент для работы с БД.
+     */
     private final Sql2o sql2o;
 
     public Sql2oGenreRepository(Sql2o sql2o) {
@@ -19,9 +24,8 @@ public class Sql2oGenreRepository implements GenreRepository {
     public Collection<Genre> findAll() {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery("select * from genres");
-            return query.executeAndFetch(Genre.class);
+            return query.setColumnMappings(Genre.COLUMN_MAPPING).executeAndFetch(Genre.class);
         }
-
     }
 
     @Override
@@ -31,6 +35,5 @@ public class Sql2oGenreRepository implements GenreRepository {
                     .addParameter("id", id);
             return query.executeAndFetchFirst(Genre.class);
         }
-
     }
 }

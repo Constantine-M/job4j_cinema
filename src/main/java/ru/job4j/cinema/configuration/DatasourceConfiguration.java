@@ -14,6 +14,10 @@ import javax.sql.DataSource;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/**
+ * Данный класс описывает конфигурацию
+ * настроек для подключения к БД.
+ */
 @Configuration
 public class DatasourceConfiguration {
 

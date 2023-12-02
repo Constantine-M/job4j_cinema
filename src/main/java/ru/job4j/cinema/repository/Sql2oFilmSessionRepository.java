@@ -9,6 +9,11 @@ import java.util.Collection;
 @Repository
 public class Sql2oFilmSessionRepository implements FilmSessionRepository {
 
+    /**
+     * Sql2o - небольшая и быстрая библиотека
+     * для доступа к реляционным базам данных.
+     * По сути это клиент для работы с БД.
+     */
     private final Sql2o sql2o;
 
     public Sql2oFilmSessionRepository(Sql2o sql2o) {
@@ -19,7 +24,7 @@ public class Sql2oFilmSessionRepository implements FilmSessionRepository {
     public Collection<FilmSession> findAll() {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery("select * from film_sessions");
-            return query.executeAndFetch(FilmSession.class);
+            return query.setColumnMappings(FilmSession.COLUMN_MAPPING).executeAndFetch(FilmSession.class);
         }
     }
 
@@ -27,7 +32,10 @@ public class Sql2oFilmSessionRepository implements FilmSessionRepository {
     public FilmSession findById(int id) {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery("SELECT * FROM film_sessions WHERE id = :id");
-            return query.addParameter("id", id).executeAndFetchFirst(FilmSession.class);
+            return query
+                    .setColumnMappings(FilmSession.COLUMN_MAPPING)
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(FilmSession.class);
         }
     }
 }

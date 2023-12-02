@@ -34,6 +34,10 @@ public class User {
         this.password = password;
     }
 
+    public User() {
+
+    }
+
     public int id() {
         return id;
     }
