@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--  Зависимости Bootstrap-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href = "@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/js/code.jquery.com_jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+    <!--    Здесь я задал стиль для body и футера таким образом,
+            чтобы наш футер всегда был внизу, вне зависимости от того,
+            много контента на странице или мало-->
+    <style>
+        body {
+            min-height: 100vh;
+        }
+        footer {
+            position: sticky;
+            top: 100%;
+        }
+    </style>
+
+    <title>Order</title>
+</head>
+<body>
+<!--    С помощью тега <header> и атрибута insert мы вставляем общий компонент страницы (блок навигации, который мы вынесли отдельно)-->
+<header th:insert="blocks/header :: header"></header>
+    <div class="container mt-5" style="font-size: 18px">
+        <!--    Это было сделано намеренно, чтобы электронный билет был ближе к центру экрана-->
+        <div class="row"><br><br><br></div>
+        <div class="row">
+            <div class="col-3">
+                <h3>YOUR E-TICKET</h3>
+            </div>
+            <!--    <div class="col-9"> - так я весь блок сдвинул чуть правее и он встал примерно по центру.
+                    Внутри этого блока строки поделены на колонки col-3 и col-9. Это я распределил пространство
+                    внутри блока. Получилось что-то вроде карточки/билета и большой удобной кнопки-->
+            <div class="col-9">
+                <div class="mb-3 h3" th:text="${ticket.filmName()}"></div>
+                <br>
+                <div class="row">
+                    <div class="col-3">
+                        <span>Hall No</span>
+                    </div>
+                    <div class="col-9">
+                        <span>Date/time</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <span th:text="${ticket.hallId()}"></span>
+                    </div>
+                    <div class="col-9">
+                        <span th:text="${#temporals.format(ticket.startTime(), 'dd/MM/yyyy HH:mm')}"></span>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-3">
+                        <span>Row No </span>
+                        <span th:text="${ticket.rowNumber()}"></span>
+                    </div>
+                    <div class="col-9">
+                        <span>Seat No </span>
+                        <span th:text="${ticket.seatNumber()}"></span>
+                    </div>
+                </div>
+                <br>
+                <div class="mb-3">
+                    <span>Price: </span>
+                    <span th:text="${ticket.price()}"></span>
+                    <span>$</span>
+                </div>
+                <br>
+                <div class="mb-3">
+                    <div class="col-9">
+                        <!--    С помощью "row d-flex" я сделал блок гибким и в нем с помощью
+                                flex-fill растянул кнопку по все длине блока-->
+                        <div class="row d-flex">
+                            <a class="btn btn-primary flex-fill" th:href="@{/films}">Back to films</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--    Вызов Footer добавляется в конце HTML страницы -->
+<footer th:insert="blocks/footer :: footer"></footer>
+</body>
+</html>

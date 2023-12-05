@@ -1,0 +1,42 @@
+<!--    Через атрибут fragment мы указываем блок кода, который можно будет вызывать по заданному в этом атрибуте имени.
+        В нашем случае имя = "header". Здесь мы выносим часть кода, которую впоследствии собираемся переиспользовать-->
+<div th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <div class="container" style="font-size: 14px">
+            <a class="navbar-brand" href="/">
+                <!--Здесь мы использовали Tymeleaf для указания пути для картинки.
+                    А также создали для картинок типа "лого" директорию "images" внутри "static".
+                    И все получилось - картинка отображается на странице-->
+                <img th:src="@{/images/pizza.svg}" width="40" height="32" alt="">
+                  Mamma Mia
+            </a>
+            <div class="collapse navbar-collapse">
+                <!--    С новыми зависимостями Bootstrap у нас теперь, чтобы отодвинуть
+                        колонки, нужно использовать не "me-auto", а "mr-auto"-->
+                <div class="navbar-nav mr-auto">
+                    <a class="nav-item nav-link" th:href="@{/films/schedule}">Schedule</a>
+                    <a class="nav-item nav-link" th:href="@{/films}">Cinema library</a>
+                </div>
+                <!--    Если пользователь не вошел в систему, то ему выводятся кнопки "Регистрация" и "Войти".
+                        Если пользователь вошел в систему, то ему выводится его имя и кнопка "Выйти".
+                        Чтобы была возможность вывести кнопки навигационной панели, нужно во всех
+                        контроллерах добавить вывод пользователя в модель.-->
+                <div class="d-flex" th:switch="${user.fullName}">
+                    <a th:case="'Guest'">
+                        <a class="nav-link text-secondary mr-3" th:href="@{/users/register}">Registration</a>
+                        <a class="nav-link text-secondary" th:href="@{/users/login}">Sign in</a>
+                    </a>
+                    <a th:case="null">
+                        <a class="nav-link text-secondary mr-3" th:href="@{/users/register}">Registration</a>
+                        <a class="nav-link text-secondary" th:href="@{/users/login}">Sign in</a>
+                    </a>
+                    <!--    DEFAULT CASE-->
+                    <a th:case="*">
+                        <a class="nav-link text-secondary mr-3" href="#" th:text="${user.fullName}"></a>
+                        <a class="nav-link text-secondary" th:href="@{/users/logout}">Sign out</a>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>

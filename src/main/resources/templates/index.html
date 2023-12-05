@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <!--  Зависимости Bootstrap-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href = "@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/js/code.jquery.com_jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+    <!--    Здесь я задал стиль для body и футера таким образом,
+            чтобы наш футер всегда был внизу, вне зависимости от того,
+            много контента на странице или мало-->
+    <style>
+        body {
+            min-height: 100vh;
+        }
+        footer {
+            position: sticky;
+            top: 100%;
+        }
+    </style>
+
+    <title>Mamma mia</title>
+</head>
+<!--    Эта строка позволяет добавить иконку сайта. Главное, чтобы картинка была доступна.
+        Один раз здесь написал и хватит - на других страницах она не нужна-->
+<link rel="shortcut icon" th:href="@{/images/pizza.svg}"/>
+<body>
+    <div class="container-fluid p-0">
+        <!--    С помощью тега <header> и атрибута insert мы вставляем общий компонент страницы (блок навигации, который мы вынесли отдельно)-->
+        <header th:insert="blocks/header :: header"></header>
+        <div class="container mt-2" style="font-size: 16px">
+            <br>
+            <h3>Greetings, cinephile!</h3>
+            <p>There are basic references below to navigate around the site:</p>
+            <ul>
+                <li><a th:href="@{/index}">This is a root page. You're here</a></li>
+                <li><a th:href="@{/users/register}">Registration page</a></li>
+                <li><a th:href="@{/users/login}">If you want to sign in - click!</a></li>
+                <li><a th:href="@{/films/schedule}">There is a schedule of all films</a></li>
+                <li><a th:href="@{/films}">There are all films you can watch in our cinema</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+        <!--    Вызов Footer добавляется в конце HTML страницы -->
+        <footer th:insert="blocks/footer :: footer"></footer>
+</html>

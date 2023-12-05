@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--  Зависимости Bootstrap-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href = "@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/js/code.jquery.com_jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+    <!--    Здесь я задал стиль для body и футера таким образом,
+            чтобы наш футер всегда был внизу, вне зависимости от того,
+            много контента на странице или мало-->
+    <style>
+        body {
+            min-height: 100vh;
+        }
+        footer {
+            position: sticky;
+            top: 100%;
+        }
+    </style>
+
+    <title>Library</title>
+</head>
+<body>
+<div class="container-fluid p-0">
+    <!--    С помощью тега <header> и атрибута insert мы вставляем общий компонент страницы (блок навигации, который мы вынесли отдельно)-->
+    <header th:insert="blocks/header :: header"></header>
+    <div class="container">
+        <div class="row">
+            <table class="table table-stripped table-borderless">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="film: ${films}">
+                    <!--    <td> обозначает ячеку таблицы. В этой ячейке можно
+                            вносить инфу по строкам. <row> обозначает строку в таблице.
+                            Так мы в одной строке уместили год, жанр, длительность фильма
+                            и пр. аттрибуты. Тег <span> можно использовать для текста.
+                            Для всей ячейки мы задали стиль. Собсно стиль заключается
+                            в размере шрифта.-->
+                    <td style="font-size: 16px">
+                        <row class="h4" th:text="${film.name()}"></row>
+                        <br>
+                            <row>
+                                <span th:text="${film.year()}"></span>
+                                <span>, </span>
+                                <span th:text="${film.durationInMinutes()}"></span>
+                                <span> min • Genre:</span>
+                                <span th:text="${film.genre()}"></span>
+                                <span> • </span>
+                                <span th:text="${film.minimalAge()}"></span>
+                                <span>+</span>
+                            </row>
+                        </br>
+                        <br>
+                            <row>
+                                <span>Description: </span>
+                                <span th:text="${film.description()}"></span>
+                            </row>
+                        </br>
+                    </td>
+                    <td class="w-50">
+                        <!--    Также отобразить все картинки можно с помощью такой команды
+                                th:src="@{/files/__${film.fileId()}__}"
+                                С ним могут быть проблемы, когда есть условия и параметры меняются,
+                                так что лучше использовать классический способ.
+                                Строка <img class="w-50 float-right" позволяет
+                                выровнять по правой стороне картинки. По умолчанию они
+                                выравнены по левой стороне.-->
+                        <img class="w-50 float-right" th:src="@{/files/{id}(id=${film.fileId()})}" alt="No image">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--    Вызов Footer добавляется в конце HTML страницы -->
+<footer th:insert="blocks/footer :: footer"></footer>
+</body>
+</html>

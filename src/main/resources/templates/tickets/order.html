@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--  Зависимости Bootstrap-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href = "@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/js/code.jquery.com_jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+    <!--    Здесь я задал стиль для body и футера таким образом,
+            чтобы наш футер всегда был внизу, вне зависимости от того,
+            много контента на странице или мало-->
+    <style>
+        body {
+            min-height: 100vh;
+        }
+        footer {
+            position: sticky;
+            top: 100%;
+        }
+    </style>
+
+    <title>Order</title>
+</head>
+<body>
+<div class="container-lg p-0">
+    <!--    С помощью тега <header> и атрибута insert мы вставляем общий компонент страницы (блок навигации, который мы вынесли отдельно)-->
+    <header th:insert="blocks/header :: header"></header>
+    <div class="container">
+        <!--    Блок, представленный ниже позволяет отцентровать форму. У меня сейчас форма
+                покупки билета в кино. Она небольшая и находится по центру.
+                <div class="row">
+                    <div class="col-3"></div>
+                    <div class="col-6">
+                    </div>
+                </div>
+                Можно это использовать в других проектах-->
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <!--  Выражение th:action="@{/tickets/order}" направляет форму к POST запросу /order-->
+                <form class="mt-5" style="font-size: 16px" th:action="@{/tickets/order}" method="post">
+                    <input type="hidden" name="userId" th:value="${user.id()}">
+                    <input type="hidden" name="sessionId" th:value="${filmSession.id()}">
+                    <br>
+                    <div class="mb-3">
+                        <h4 th:text="${filmSession.filmName()}"></h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <span>Hall No</span>
+                        </div>
+                        <div class="col-6">
+                            <span>Date/time</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <span th:text="${filmSession.hallId()}"></span>
+                        </div>
+                        <div class="col-6">
+                            <span th:text="${#temporals.format(filmSession.startTime(), 'dd/MM/yyyy HH:mm')}"></span>
+                        </div>
+                    </div>
+                    <br>
+                    <!--    Ниже мы в одной строке (тег row) прописали 2 выпадающих списка.
+                            div class="col-6"> - здесь мы вроде как поделили визуально строку на 6 колонок.
+                            select class="form-select w-100" - здесь мы обозначили вид выпадающего списка и ширину этой формочки (w-100)
+                            <option selected>Select row</option> - это дефолтная запись в нашем выпадающем списке. Удобно, если не хочешь добавлять лейблы.
+                            Ниже мы сделали так, чтобы наш список был от 1 до нужного числа (до кол-ва мест в зале)
+                            <option th:each="i : ${#numbers.sequence(1, hall.rowCount())}" th:value="${i}" th:text="${i}"></option>-->
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <select class="form-select w-100" id="row" name="rowNumber" type="number" >
+                                <option selected disabled>Select row</option>
+                                <option th:each="i : ${#numbers.sequence(1, hall.rowCount())}" th:value="${i}" th:text="${i}"></option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-select w-100" id="place" name="placeNumber" type="number">
+                                <option selected disabled>Select seat number</option>
+                                <option th:each="i : ${#numbers.sequence(1, hall.placeCount())}" th:value="${i}" th:text="${i}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <span>Price: </span>
+                        <span th:text="${filmSession.price()}"></span>
+                        <span>$</span>
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col-6"></div>
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-6"><a class="btn btn-danger w-100" th:href="@{/films/schedule}">Maybe later</a></div>
+                                <div class="col-6"><button class="btn btn-primary w-100" type="submit">Buy now</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--    Вызов Footer добавляется в конце HTML страницы -->
+<footer th:insert="blocks/footer :: footer"></footer>
+</body>
+</html>
