@@ -1,6 +1,21 @@
 package ru.job4j.cinema.model;
 
+import java.util.Map;
+
 public class Genre {
+
+    /**
+     * В данном случае ситуация
+     * с полями немного сложнее, поэтому
+     * нам нужно написать маппинг в
+     * виде мапы COLUMN_MAPPING, ключи
+     * которой это столбцы из БД,
+     * а значения названия полей.
+     */
+    public static final Map<String, String> COLUMN_MAPPING = Map.of(
+            "id", "id",
+            "name", "name"
+    );
 
     private int id;
 

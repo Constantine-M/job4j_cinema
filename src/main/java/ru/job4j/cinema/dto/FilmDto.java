@@ -1,5 +1,10 @@
 package ru.job4j.cinema.dto;
 
+/**
+ * Данный класс описывает объект-фильм,
+ * в котором содержатся необходимые данные
+ * для отображения на веб-странице.
+ */
 public class FilmDto {
 
     private final int id;
@@ -16,6 +21,8 @@ public class FilmDto {
 
     private final String genre;
 
+    private final int fileId;
+
     private FilmDto(FilmDtoBuilder builder) {
         this.id = builder.id;
         this.name = builder.name;
@@ -24,6 +31,7 @@ public class FilmDto {
         this.minimalAge = builder.minimalAge;
         this.durationInMinutes = builder.durationInMinutes;
         this.genre = builder.genre;
+        this.fileId = builder.fileId;
     }
 
     public int id() {
@@ -55,6 +63,10 @@ public class FilmDto {
         return genre;
     }
 
+    public int fileId() {
+        return fileId;
+    }
+
     /**
      * Данный класс позволяет создавать
      * различные комбинации нужного
@@ -80,6 +92,7 @@ public class FilmDto {
         private int minimalAge;
         private int durationInMinutes;
         private String genre;
+        private int fileId;
 
         public FilmDtoBuilder() {
             super();
@@ -117,6 +130,11 @@ public class FilmDto {
 
         public FilmDtoBuilder genre(String genre) {
             this.genre = genre;
+            return this;
+        }
+
+        public FilmDtoBuilder fileId(int fileId) {
+            this.fileId = fileId;
             return this;
         }
 

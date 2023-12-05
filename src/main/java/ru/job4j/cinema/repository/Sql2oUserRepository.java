@@ -38,6 +38,13 @@ public class Sql2oUserRepository implements UserRepository {
      * не получить ошибку. Таким образом,
      * в случае, когда почта уже занята,
      * мы вернем пустой Optional.
+     *
+     * В процессе добавления параметра,
+     * обращай внимание на имена. Например,
+     * в блоке создания запроса мы в кач-ве
+     * параметров добавляли имя, почту и пароль.
+     * Параметр fullName должен быть в sql запросе,
+     * в values и он же будет в параметре запроса.
      */
     @Override
     public Optional<User> save(User user) {
@@ -47,7 +54,7 @@ public class Sql2oUserRepository implements UserRepository {
                     values (:fullName, :email, :password)
                     """;
             var query = connection.createQuery(sql, true)
-                    .addParameter("full_name", user.fullName())
+                    .addParameter("fullName", user.fullName())
                     .addParameter("email", user.email())
                     .addParameter("password", user.password());
             int generatedId = query.executeUpdate().getKey(Integer.class);
@@ -69,7 +76,7 @@ public class Sql2oUserRepository implements UserRepository {
             var query = connection.createQuery(sql)
                     .addParameter("email", email)
                     .addParameter("password", password);
-            var user = query.executeAndFetchFirst(User.class);
+            var user = query.setColumnMappings(User.COLUMN_MAPPING).executeAndFetchFirst(User.class);
             return Optional.ofNullable(user);
         }
     }

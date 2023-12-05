@@ -1,20 +1,29 @@
 package ru.job4j.cinema.service;
 
+import org.springframework.stereotype.Service;
 import ru.job4j.cinema.dto.FilmSessionDto;
 import ru.job4j.cinema.repository.FilmRepository;
 import ru.job4j.cinema.repository.FilmSessionRepository;
+import ru.job4j.cinema.repository.HallRepository;
 
 import java.util.Collection;
 
+@Service
 public class SimpleFilmSessionService implements FilmSessionService {
 
     private final FilmSessionRepository filmSessionRepository;
 
     private final FilmRepository filmRepository;
 
-    public SimpleFilmSessionService(FilmSessionRepository filmSessionRepository, FilmRepository filmRepository) {
+    private final HallRepository hallRepository;
+
+    public SimpleFilmSessionService(FilmSessionRepository filmSessionRepository,
+                                    FilmRepository filmRepository,
+                                    HallRepository hallRepository) {
+
         this.filmSessionRepository = filmSessionRepository;
         this.filmRepository = filmRepository;
+        this.hallRepository = hallRepository;
     }
 
     @Override
@@ -27,6 +36,8 @@ public class SimpleFilmSessionService implements FilmSessionService {
                         .startTime(filmSession.startTime())
                         .endTime(filmSession.endTime())
                         .price(filmSession.price())
+                        .hallId(filmSession.hallId())
+                        .hallName(hallRepository.findById(filmSession.hallId()).name())
                         .build())
                 .toList();
         return filmSessionDtoList;
@@ -42,6 +53,8 @@ public class SimpleFilmSessionService implements FilmSessionService {
                 .startTime(filmSession.startTime())
                 .endTime(filmSession.endTime())
                 .price(filmSession.price())
+                .hallId(filmSession.hallId())
+                .hallName(hallRepository.findById(filmSession.hallId()).name())
                 .build();
     }
 }

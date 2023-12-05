@@ -36,19 +36,26 @@ public class Sql2oTicketRepository implements TicketRepository {
      * образом, если билет будет уже
      * куплен кем-то, то мы вернем
      * пустой Optional.
+     *
+     * Напоминание (в учебных целях):
+     * - метод ecexute() возвращает boolean;
+     * - метод executeUpdate() возвращает
+     * int, которое сообщает, сколько строк
+     * было изменено;
+     * - метод executeQuery() возвращает ResultSet;
      */
     @Override
     public Optional<Ticket> save(Ticket ticket) {
         try (var connection = sql2o.open()) {
             var sql = """
                     insert into tickets(session_id, row_number, place_number, user_id)
-                    values (:sessionId, :rowNumber, :placeNumber, userId)
+                    values (:sessionId, :rowNumber, :placeNumber, :userId)
                     """;
             var query = connection.createQuery(sql, true)
-                    .addParameter("session_id", ticket.sessionId())
-                    .addParameter("row_number", ticket.rowNumber())
-                    .addParameter("place_number", ticket.placeNumber())
-                    .addParameter("user_id", ticket.userId());
+                    .addParameter("sessionId", ticket.sessionId())
+                    .addParameter("rowNumber", ticket.rowNumber())
+                    .addParameter("placeNumber", ticket.placeNumber())
+                    .addParameter("userId", ticket.userId());
             int generatedId = query.executeUpdate().getKey(Integer.class);
             ticket.setId(generatedId);
             return Optional.of(ticket);
@@ -72,15 +79,16 @@ public class Sql2oTicketRepository implements TicketRepository {
      * возвращает список).
      */
     @Override
-    public Optional<Ticket> findByRowAndSeatNo(int rowNo, int seatNo) {
+    public Optional<Ticket> findByRowAndSeatNoAndSessionId(int rowNo, int seatNo, int sessionId) {
         try (var connection = sql2o.open()) {
             var sql = """
                     select * from tickets
-                    where row_number = :rowNo and place_number = :seatNo
+                    where row_number = :rowNo and place_number = :seatNo and session_id = :sessionId
                     """;
             var query = connection.createQuery(sql)
                     .addParameter("rowNo", rowNo)
-                    .addParameter("seatNo", seatNo);
+                    .addParameter("seatNo", seatNo)
+                    .addParameter("sessionId", sessionId);
             var ticket = query.setColumnMappings(Ticket.COLUMN_MAPPING).executeAndFetchFirst(Ticket.class);
             return Optional.ofNullable(ticket);
         }

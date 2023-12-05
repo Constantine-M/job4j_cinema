@@ -8,5 +8,5 @@ public interface TicketRepository {
 
     Optional<Ticket> save(Ticket ticket);
 
-    Optional<Ticket> findByRowAndSeatNo(int rowNo, int seatNo);
+    Optional<Ticket> findByRowAndSeatNoAndSessionId(int rowNo, int seatNo, int sessionId);
 }

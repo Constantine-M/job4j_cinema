@@ -31,6 +31,7 @@ public class SimpleFilmService implements FilmService {
                         .description(film.description())
                         .minimalAge(film.minimalAge())
                         .durationInMinutes(film.durationInMinutes())
+                        .fileId(film.fileId())
                         .build())
                 .toList();
         return filmDtoResultList;

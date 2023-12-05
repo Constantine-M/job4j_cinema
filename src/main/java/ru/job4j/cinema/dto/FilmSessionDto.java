@@ -2,6 +2,11 @@ package ru.job4j.cinema.dto;
 
 import java.time.LocalDateTime;
 
+/**
+ * Данный класс описывает объект сеанса кино,
+ * в котором содержатся необходимые данные
+ * для отображения на веб-странице.
+ */
 public class FilmSessionDto {
 
     private final int id;
@@ -14,12 +19,18 @@ public class FilmSessionDto {
 
     private final String filmName;
 
+    private final int hallId;
+
+    private final String hallName;
+
     private FilmSessionDto(FilmSessionDtoBuilder builder) {
         this.id = builder.id;
         this.startTime = builder.startTime;
         this.endTime = builder.endTime;
         this.price = builder.price;
         this.filmName = builder.filmName;
+        this.hallId = builder.hallId;
+        this.hallName = builder.hallName;
     }
 
     public int id() {
@@ -40,6 +51,14 @@ public class FilmSessionDto {
 
     public String filmName() {
         return filmName;
+    }
+
+    public int hallId() {
+        return hallId;
+    }
+
+    public String hallName() {
+        return hallName;
     }
 
     /**
@@ -65,6 +84,8 @@ public class FilmSessionDto {
         private LocalDateTime endTime;
         private int price;
         private String filmName;
+        private int hallId;
+        private String hallName;
 
         public FilmSessionDtoBuilder() {
             super();
@@ -91,6 +112,16 @@ public class FilmSessionDto {
         }
         public FilmSessionDtoBuilder filmName(String filmName) {
             this.filmName = filmName;
+            return this;
+        }
+
+        public FilmSessionDtoBuilder hallId(int hallId) {
+            this.hallId = hallId;
+            return this;
+        }
+
+        public FilmSessionDtoBuilder hallName(String hallName) {
+            this.hallName = hallName;
             return this;
         }
 

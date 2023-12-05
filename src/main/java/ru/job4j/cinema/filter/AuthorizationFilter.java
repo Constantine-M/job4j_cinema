@@ -70,6 +70,11 @@ public class AuthorizationFilter  extends HttpFilter {
         return uri.startsWith("/users/register")
                 || uri.startsWith("/users/login")
                 || uri.startsWith("/js")
-                || uri.startsWith("/css");
+                || uri.startsWith("/css")
+                || uri.startsWith("/files")
+                || uri.startsWith("/films/schedule")
+                || uri.startsWith("/index")
+                || uri.endsWith("/films")
+                || uri.endsWith("/");
     }
 }

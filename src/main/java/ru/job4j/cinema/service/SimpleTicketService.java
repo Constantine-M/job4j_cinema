@@ -1,7 +1,10 @@
 package ru.job4j.cinema.service;
 
 import org.springframework.stereotype.Service;
+import ru.job4j.cinema.dto.TicketDto;
 import ru.job4j.cinema.model.Ticket;
+import ru.job4j.cinema.repository.FilmRepository;
+import ru.job4j.cinema.repository.FilmSessionRepository;
 import ru.job4j.cinema.repository.TicketRepository;
 
 import java.util.Optional;
@@ -11,27 +14,49 @@ public class SimpleTicketService implements TicketService {
 
     private final TicketRepository ticketRepository;
 
-    public SimpleTicketService(TicketRepository ticketRepository) {
+    private final FilmSessionRepository filmSessionRepository;
+
+    private final FilmRepository filmRepository;
+
+    public SimpleTicketService(TicketRepository ticketRepository,
+                               FilmSessionRepository filmSessionRepository,
+                               FilmRepository filmRepository) {
+
         this.ticketRepository = ticketRepository;
+        this.filmSessionRepository = filmSessionRepository;
+        this.filmRepository = filmRepository;
     }
 
     @Override
-    public Optional<Ticket> buyTicket(Ticket ticket) {
+    public Optional<TicketDto> buyTicket(Ticket ticket) {
         if (isTaken(ticket)) {
             return Optional.empty();
         }
-        return ticketRepository.save(ticket);
+        var savedTicketOptional = ticketRepository.save(ticket);
+        var filmSession = filmSessionRepository.findById(savedTicketOptional.get().sessionId());
+        var ticketDto = new TicketDto.TicketDtoBuilder()
+                            .filmName(filmRepository.findById(filmSession.filmId()).name())
+                            .startTime(filmSession.startTime())
+                            .endTime(filmSession.endTime())
+                            .hallId(filmSession.hallId())
+                            .price(filmSession.price())
+                            .rowNumber(savedTicketOptional.get().rowNumber())
+                            .seatNumber(savedTicketOptional.get().placeNumber())
+                            .build();
+        return Optional.of(ticketDto);
     }
 
     /**
      * Данный метод проверяет наличие
-     * билета по ряду и месту.
+     * билета по ряду, месту и номеру сеанса.
      *
      * @return true, если билет уже
      * куплен/место занято.
      */
     private boolean isTaken(Ticket ticket) {
-        var optionalTicket = ticketRepository.findByRowAndSeatNo(ticket.rowNumber(), ticket.placeNumber());
-        return optionalTicket.isPresent();
+        return ticketRepository
+                .findByRowAndSeatNoAndSessionId(
+                        ticket.rowNumber(), ticket.placeNumber(), ticket.sessionId())
+                .isPresent();
     }
 }
