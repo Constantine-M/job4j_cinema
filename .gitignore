@@ -4,7 +4,6 @@ target/
 !**/src/main/**/target/
 !**/src/main/**/js/
 !**/src/main/**/css/
-!**/src/test/**/target/
 *.db
 *.js
 

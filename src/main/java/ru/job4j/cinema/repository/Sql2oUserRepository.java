@@ -57,7 +57,7 @@ public class Sql2oUserRepository implements UserRepository {
                     .addParameter("fullName", user.fullName())
                     .addParameter("email", user.email())
                     .addParameter("password", user.password());
-            int generatedId = query.executeUpdate().getKey(Integer.class);
+            int generatedId = query.setColumnMappings(User.COLUMN_MAPPING).executeUpdate().getKey(Integer.class);
             user.setId(generatedId);
             return Optional.of(user);
         } catch (Sql2oException e) {
@@ -85,7 +85,7 @@ public class Sql2oUserRepository implements UserRepository {
     public Collection<User> findAll() {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery("SELECT * FROM users");
-            return query.executeAndFetch(User.class);
+            return query.setColumnMappings(User.COLUMN_MAPPING).executeAndFetch(User.class);
         }
     }
 

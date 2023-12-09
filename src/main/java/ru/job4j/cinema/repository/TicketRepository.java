@@ -2,6 +2,7 @@ package ru.job4j.cinema.repository;
 
 import ru.job4j.cinema.model.Ticket;
 
+import java.util.Collection;
 import java.util.Optional;
 
 public interface TicketRepository {
@@ -9,4 +10,8 @@ public interface TicketRepository {
     Optional<Ticket> save(Ticket ticket);
 
     Optional<Ticket> findByRowAndSeatNoAndSessionId(int rowNo, int seatNo, int sessionId);
+
+    Collection<Ticket> findAll();
+
+    boolean deleteById(int id);
 }

@@ -6,7 +6,9 @@ import org.springframework.stereotype.Repository;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 import ru.job4j.cinema.model.Ticket;
+import ru.job4j.cinema.model.User;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Repository
@@ -56,7 +58,7 @@ public class Sql2oTicketRepository implements TicketRepository {
                     .addParameter("rowNumber", ticket.rowNumber())
                     .addParameter("placeNumber", ticket.placeNumber())
                     .addParameter("userId", ticket.userId());
-            int generatedId = query.executeUpdate().getKey(Integer.class);
+            int generatedId = query.setColumnMappings(Ticket.COLUMN_MAPPING).executeUpdate().getKey(Integer.class);
             ticket.setId(generatedId);
             return Optional.of(ticket);
         } catch (Sql2oException e) {
@@ -91,6 +93,24 @@ public class Sql2oTicketRepository implements TicketRepository {
                     .addParameter("sessionId", sessionId);
             var ticket = query.setColumnMappings(Ticket.COLUMN_MAPPING).executeAndFetchFirst(Ticket.class);
             return Optional.ofNullable(ticket);
+        }
+    }
+
+    @Override
+    public Collection<Ticket> findAll() {
+        try (var connection = sql2o.open()) {
+            var query = connection.createQuery("SELECT * FROM tickets");
+            return query.setColumnMappings(Ticket.COLUMN_MAPPING).executeAndFetch(Ticket.class);
+        }
+    }
+
+    @Override
+    public boolean deleteById(int id) {
+        try (var connection = sql2o.open()) {
+            var query = connection.createQuery("DELETE FROM tickets WHERE id = :id")
+                    .addParameter("id", id);
+            var affectedRows = query.setColumnMappings(Ticket.COLUMN_MAPPING).executeUpdate().getResult();
+            return affectedRows > 0;
         }
     }
 }

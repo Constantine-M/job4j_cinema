@@ -12,8 +12,11 @@
             </a>
             <div class="collapse navbar-collapse">
                 <!--    С новыми зависимостями Bootstrap у нас теперь, чтобы отодвинуть
-                        колонки, нужно использовать не "me-auto", а "mr-auto"-->
-                <div class="navbar-nav mr-auto">
+                        колонки, нужно использовать не "me-auto", а "mr-auto".
+                        Дополнение! На другой машине с тем же самым браузером
+                        пришлось вернуть me-auto. Поэтому, какой вариант итоговый -
+                        не совсем понятно-->
+                <div class="navbar-nav me-auto">
                     <a class="nav-item nav-link" th:href="@{/films/schedule}">Schedule</a>
                     <a class="nav-item nav-link" th:href="@{/films}">Cinema library</a>
                 </div>
@@ -23,16 +26,16 @@
                         контроллерах добавить вывод пользователя в модель.-->
                 <div class="d-flex" th:switch="${user.fullName}">
                     <a th:case="'Guest'">
-                        <a class="nav-link text-secondary mr-3" th:href="@{/users/register}">Registration</a>
+                        <a class="nav-link text-secondary me-3" th:href="@{/users/register}">Registration</a>
                         <a class="nav-link text-secondary" th:href="@{/users/login}">Sign in</a>
                     </a>
                     <a th:case="null">
-                        <a class="nav-link text-secondary mr-3" th:href="@{/users/register}">Registration</a>
+                        <a class="nav-link text-secondary me-3" th:href="@{/users/register}">Registration</a>
                         <a class="nav-link text-secondary" th:href="@{/users/login}">Sign in</a>
                     </a>
                     <!--    DEFAULT CASE-->
                     <a th:case="*">
-                        <a class="nav-link text-secondary mr-3" href="#" th:text="${user.fullName}"></a>
+                        <a class="nav-link text-secondary me-3" href="#" th:text="${user.fullName}"></a>
                         <a class="nav-link text-secondary" th:href="@{/users/logout}">Sign out</a>
                     </a>
                 </div>
