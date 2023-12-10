@@ -1,4 +1,5 @@
 [![CI with Maven](https://github.com/Constantine-M/job4j_cinema/actions/workflows/gitActions.yml/badge.svg)](https://github.com/Constantine-M/job4j_cinema/actions/workflows/gitActions.yml)
+[![codecov](https://codecov.io/gh/Constantine-M/job4j_cinema/graph/badge.svg?token=QMzcJ9Pvfo)](https://codecov.io/gh/Constantine-M/job4j_cinema)
 
 # job4j_cinema
 
@@ -27,8 +28,53 @@ Environment requirements.
 
 Launching the project.
 ---------------------
-1. 
+1. Recommended Chrome based browser.
+2. Install PostgreSQL: login - postgres, password - password;
+3. Create cinema database;
+> CREATE DATABASE cinema;
+4. Build the project and run the Spring Boot application
+> mvn clean package spring-boot:run
+
+Application Interaction.
+------------------------
+------------------------
+Main
+----
+![img.png](src/main/resources/static/images/Main.png)
+
+Registration
+------------
+![img.png](src/main/resources/static/images/Registration.png)
+
+Login
+-----
+![img.png](src/main/resources/static/images/Login.png)
+
+Library
+--------
+![img.png](src/main/resources/static/images/Library.png)
+
+Schedule
+-------
+![img.png](src/main/resources/static/images/Schedule.png)
+
+Buy ticket
+----------
+![img.png](src/main/resources/static/images/Purchasing-1.png)
+
+![img.png](src/main/resources/static/images/Purchasing-2.png)
+
+Success page
+------------
+![img.png](src/main/resources/static/images/Success.png)
+
+Error pages
+----------
+![img.png](src/main/resources/static/images/Error-1.png)
+
+![img.png](src/main/resources/static/images/Error-2.png)
 
 Contacts.
 --------
 - Telegram - https://t.me/MAConsta.
+
