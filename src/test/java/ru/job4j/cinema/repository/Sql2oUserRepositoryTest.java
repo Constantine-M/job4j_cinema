@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.job4j.cinema.configuration.DatasourceConfiguration;
 import ru.job4j.cinema.model.User;
+import ru.job4j.cinema.repository.user.Sql2oUserRepository;
 
 import java.util.Collections;
 import java.util.List;

@@ -7,9 +7,9 @@ import org.springframework.ui.ConcurrentModel;
 import ru.job4j.cinema.dto.FilmDto;
 import ru.job4j.cinema.dto.FilmSessionDto;
 import ru.job4j.cinema.model.Hall;
-import ru.job4j.cinema.service.FilmService;
-import ru.job4j.cinema.service.FilmSessionService;
-import ru.job4j.cinema.service.HallService;
+import ru.job4j.cinema.service.film.FilmService;
+import ru.job4j.cinema.service.session.FilmSessionService;
+import ru.job4j.cinema.service.hall.HallService;
 
 import java.time.LocalDateTime;
 import java.util.List;

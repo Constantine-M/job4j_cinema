@@ -3,6 +3,7 @@ package ru.job4j.cinema.repository;
 import org.junit.jupiter.api.*;
 import ru.job4j.cinema.configuration.DatasourceConfiguration;
 import ru.job4j.cinema.model.Ticket;
+import ru.job4j.cinema.repository.ticket.Sql2oTicketRepository;
 
 import java.util.Collections;
 import java.util.Optional;

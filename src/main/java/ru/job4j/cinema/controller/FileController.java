@@ -1,11 +1,12 @@
 package ru.job4j.cinema.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.job4j.cinema.service.FileService;
+import ru.job4j.cinema.service.file.FileService;
 
 /**
  * Данный класс описывает работу
@@ -41,14 +42,17 @@ public class FileController {
      *
      * Если файл не будет найден, то
      * от сервера придет ответ с кодом
-     * ошибки 404 (not found), иначе ответ
+     * ошибки 404 (not found) и информирующий
+     * об этом текст, иначе ответ
      * с кодом 200 (OK) очень грубо говоря.
      */
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable int id) {
         var contentOptional = fileService.findById(id);
         if (contentOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(String.format("File with id = %d not found", id));
         }
         return ResponseEntity.ok(contentOptional.get().content());
     }

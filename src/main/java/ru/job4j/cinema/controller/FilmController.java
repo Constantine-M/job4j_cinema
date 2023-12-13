@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.job4j.cinema.model.User;
-import ru.job4j.cinema.service.FilmService;
-import ru.job4j.cinema.service.FilmSessionService;
-import ru.job4j.cinema.service.HallService;
+import ru.job4j.cinema.service.film.FilmService;
+import ru.job4j.cinema.service.session.FilmSessionService;
+import ru.job4j.cinema.service.hall.HallService;
 
 /**
  * Данный класс находится в слое

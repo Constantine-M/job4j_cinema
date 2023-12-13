@@ -6,7 +6,7 @@ import org.mockito.ArgumentCaptor;
 import org.springframework.ui.ConcurrentModel;
 import ru.job4j.cinema.dto.TicketDto;
 import ru.job4j.cinema.model.Ticket;
-import ru.job4j.cinema.service.TicketService;
+import ru.job4j.cinema.service.ticket.TicketService;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
