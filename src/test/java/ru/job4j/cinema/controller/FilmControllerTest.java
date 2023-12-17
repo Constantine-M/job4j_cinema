@@ -44,7 +44,7 @@ class FilmControllerTest {
      */
     @Test
     public void whenRequestListOfFilmsThenGetPageWithFilms() {
-        var film1 = new FilmDto.FilmDtoBuilder()
+        var film1 = FilmDto.of()
                 .id(1)
                 .name("Big Bang")
                 .genre("action")
@@ -54,7 +54,7 @@ class FilmControllerTest {
                 .durationInMinutes(1)
                 .fileId(1)
                 .build();
-        var film2 = new FilmDto.FilmDtoBuilder()
+        var film2 = FilmDto.of()
                 .id(2)
                 .name("Big Bang. Part 2")
                 .genre("fantasy")
@@ -83,7 +83,7 @@ class FilmControllerTest {
     @Test
     public void whenRequestScheduleOfFilmsThenGetSchedulePage() {
         var dateTime = LocalDateTime.now();
-        var filmSession1 = new FilmSessionDto.FilmSessionDtoBuilder()
+        var filmSession1 = FilmSessionDto.of()
                 .id(1)
                 .filmName("Big Bang")
                 .startTime(dateTime)
@@ -92,7 +92,7 @@ class FilmControllerTest {
                 .hallId(1)
                 .hallName("Earth")
                 .build();
-        var filmSession2 = new FilmSessionDto.FilmSessionDtoBuilder()
+        var filmSession2 = FilmSessionDto.of()
                 .id(1)
                 .filmName("Big Bang. Part 2")
                 .startTime(dateTime)
@@ -133,7 +133,7 @@ class FilmControllerTest {
     public void whenRequestFilmSessionByIdThenGetOrderPageWithFilmSessionAndHallAttr() {
         var dateTime = LocalDateTime.now();
         var session = new MockHttpSession();
-        var expectedFilmSession = new FilmSessionDto.FilmSessionDtoBuilder()
+        var expectedFilmSession = FilmSessionDto.of()
                 .id(1)
                 .filmName("Big Bang")
                 .startTime(dateTime)

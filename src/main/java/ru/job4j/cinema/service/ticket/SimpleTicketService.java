@@ -35,11 +35,11 @@ public class SimpleTicketService implements TicketService {
         var savedTicketOptional = ticketRepository.save(ticket);
         var filmSession = filmSessionRepository.findById(savedTicketOptional.get().sessionId());
         var ticketDto = new TicketDto.TicketDtoBuilder()
-                            .filmName(filmRepository.findById(filmSession.filmId()).name())
-                            .startTime(filmSession.startTime())
-                            .endTime(filmSession.endTime())
-                            .hallId(filmSession.hallId())
-                            .price(filmSession.price())
+                            .filmName(filmRepository.findById(filmSession.getFilmId()).getName())
+                            .startTime(filmSession.getStartTime())
+                            .endTime(filmSession.getEndTime())
+                            .hallId(filmSession.getHallId())
+                            .price(filmSession.getPrice())
                             .rowNumber(savedTicketOptional.get().rowNumber())
                             .seatNumber(savedTicketOptional.get().placeNumber())
                             .build();

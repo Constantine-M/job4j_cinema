@@ -45,20 +45,12 @@ class Sql2oFilmSessionRepositoryTest {
     void whenFindAllFilmSessionsThenGetListOfThreeFilmSession() {
         var dateTime = LocalDateTime.of(2023, 11, 4, 22, 0);
         var expectedListOfSessions = List.of(
-                new FilmSession(1, 1, 3,
-                        LocalDateTime.of(2023, 11, 4, 22, 0),
-                        LocalDateTime.of(2023, 11, 4, 23, 50),
-                         1200),
-                new FilmSession(2, 2, 1,
-                        LocalDateTime.of(2023, 11, 5, 17, 10),
-                        LocalDateTime.of(2023, 11, 5, 18, 50),
-                         1650),
-                new FilmSession(3, 3, 2,
-                        LocalDateTime.of(2023, 11, 5, 9, 30),
-                        LocalDateTime.of(2023, 11, 5, 11, 30),
-                         150)
+                new FilmSession(1, 1, 3, dateTime, dateTime.plusMinutes(30), 1200),
+                new FilmSession(2, 2, 1, dateTime.minusHours(1), dateTime.plusMinutes(30), 1650),
+                new FilmSession(3, 3, 2, dateTime.minusHours(3), dateTime.plusMinutes(3), 150)
         );
-        assertThat(sql2oFilmSessionRepository.findAll()).isEqualTo(expectedListOfSessions);
+        var actualListOfSessions = sql2oFilmSessionRepository.findAll();
+        assertThat(actualListOfSessions).isEqualTo(expectedListOfSessions);
     }
 
     /**
@@ -67,10 +59,8 @@ class Sql2oFilmSessionRepositoryTest {
      */
     @Test
     void whenFindById3ThenGetFilmSessionWithStartTimeAt9AM() {
-        var expectedFilmSession = new FilmSession(3, 3, 2,
-                LocalDateTime.of(2023, 11, 5, 9, 30),
-                LocalDateTime.of(2023, 11, 5, 11, 30),
-                150);
+        var dateTime = LocalDateTime.of(2023, 11, 5, 9, 30);
+        var expectedFilmSession = new FilmSession(3, 3, 2, dateTime, dateTime.plusHours(2), 150);
         assertThat(sql2oFilmSessionRepository.findById(3)).isEqualTo(expectedFilmSession);
     }
 }

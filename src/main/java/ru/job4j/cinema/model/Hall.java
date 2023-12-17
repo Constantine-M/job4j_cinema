@@ -1,7 +1,26 @@
 package ru.job4j.cinema.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Map;
 
+/**
+ * Большая часть кода модели
+ * (геттеры, сеттеры, Equals and HashCode)
+ * была сгенерирована с помощью
+ * бибилиотеки Lombok.
+ *
+ * Это было сделано, чтобы код
+ * помещался на 1 страницу для
+ * удобства чтения и, одновременно
+ * с этим, не был перегружен
+ * аннотациями.
+ */
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Hall {
 
     /**
@@ -20,6 +39,7 @@ public class Hall {
             "description", "description"
     );
 
+    @EqualsAndHashCode.Include
     private int id;
 
     private String name;
@@ -36,62 +56,5 @@ public class Hall {
         this.rowCount = rowCount;
         this.placeCount = placeCount;
         this.description = description;
-    }
-
-    public int id() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String name() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int rowCount() {
-        return rowCount;
-    }
-
-    public void setRowCount(int rowCount) {
-        this.rowCount = rowCount;
-    }
-
-    public int placeCount() {
-        return placeCount;
-    }
-
-    public void setPlaceCount(int placeCount) {
-        this.placeCount = placeCount;
-    }
-
-    public String description() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Hall hall)) {
-            return false;
-        }
-
-        return id == hall.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return id;
     }
 }

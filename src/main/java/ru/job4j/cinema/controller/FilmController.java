@@ -93,7 +93,7 @@ public class FilmController {
         var filmSession = filmSessionService.findById(id);
         model.addAttribute("filmSession", filmSession);
         model.addAttribute("user", user);
-        model.addAttribute("hall", hallService.findById(filmSession.hallId()));
+        model.addAttribute("hall", hallService.findById(filmSession.getHallId()));
         return "tickets/order";
     }
 }

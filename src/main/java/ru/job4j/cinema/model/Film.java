@@ -1,7 +1,26 @@
 package ru.job4j.cinema.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Map;
 
+/**
+ * Большая часть кода модели
+ * (геттеры, сеттеры, Equals and HashCode)
+ * была сгенерирована с помощью
+ * бибилиотеки Lombok.
+ *
+ * Это было сделано, чтобы код
+ * помещался на 1 страницу для
+ * удобства чтения и, одновременно
+ * с этим, не был перегружен
+ * аннотациями.
+ */
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Film {
 
     /**
@@ -23,6 +42,7 @@ public class Film {
             "file_id", "fileId"
     );
 
+    @EqualsAndHashCode.Include
     private int id;
 
     private String name;
@@ -51,86 +71,5 @@ public class Film {
         this.minimalAge = minimalAge;
         this.durationInMinutes = durationInMinutes;
         this.fileId = fileId;
-    }
-
-    public int id() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String name() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String description() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int year() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public int genreId() {
-        return genreId;
-    }
-
-    public void setGenreId(int genreId) {
-        this.genreId = genreId;
-    }
-
-    public int minimalAge() {
-        return minimalAge;
-    }
-
-    public void setMinimalAge(int minimalAge) {
-        this.minimalAge = minimalAge;
-    }
-
-    public int durationInMinutes() {
-        return durationInMinutes;
-    }
-
-    public void setDurationInMinutes(int durationInMinutes) {
-        this.durationInMinutes = durationInMinutes;
-    }
-
-    public int fileId() {
-        return fileId;
-    }
-
-    public void setFileId(int fileId) {
-        this.fileId = fileId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Film film)) {
-            return false;
-        }
-
-        return id == film.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return id;
     }
 }

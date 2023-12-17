@@ -45,23 +45,23 @@
                             Для всей ячейки мы задали стиль. Собсно стиль заключается
                             в размере шрифта.-->
                     <td style="font-size: 16px">
-                        <row class="h4" th:text="${film.name()}"></row>
+                        <row class="h4" th:text="${film.getName()}"></row>
                         <br>
                             <row>
-                                <span th:text="${film.year()}"></span>
+                                <span th:text="${film.getYear()}"></span>
                                 <span>, </span>
-                                <span th:text="${film.durationInMinutes()}"></span>
+                                <span th:text="${film.getDurationInMinutes()}"></span>
                                 <span> min • Genre:</span>
-                                <span th:text="${film.genre()}"></span>
+                                <span th:text="${film.getGenre()}"></span>
                                 <span> • </span>
-                                <span th:text="${film.minimalAge()}"></span>
+                                <span th:text="${film.getMinimalAge()}"></span>
                                 <span>+</span>
                             </row>
                         </br>
                         <br>
                             <row>
                                 <span>Description: </span>
-                                <span th:text="${film.description()}"></span>
+                                <span th:text="${film.getDescription()}"></span>
                             </row>
                         </br>
                     </td>
@@ -73,7 +73,7 @@
                                 Строка <img class="w-50 float-right" позволяет
                                 выровнять по правой стороне картинки. По умолчанию они
                                 выравнены по левой стороне.-->
-                        <img class="w-50 float-right" th:src="@{/files/{id}(id=${film.fileId()})}" alt="No image">
+                        <img class="w-50 float-right" th:src="@{/files/{id}(id=${film.getFileId()})}" alt="No image">
                     </td>
                 </tr>
                 </tbody>

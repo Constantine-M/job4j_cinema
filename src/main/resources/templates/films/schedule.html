@@ -41,7 +41,7 @@
                             Для всей ячейки мы задали стиль. Собсно стиль заключается
                             в размере шрифта.-->
                     <td style="font-size: 16px">
-                        <row class="h4" th:text="${filmSession.filmName()}"></row>
+                        <row class="h4" th:text="${filmSession.getFilmName()}"></row>
                     </td>
                     <td style="font-size: 16px">
                         <row>
@@ -49,23 +49,23 @@
                                     задать адрес документа, на который требуется перейти. Здесь мы плавно
                                     передаем эстафету другому контроллеру (TicketController), т.к.
                                     перебрасываем пользователя по адресу /tickets/order (страница покупки билета)-->
-                            <a class="h4" th:text="${#temporals.format(filmSession.startTime(), 'dd/MM/yyyy HH:mm')}"
-                                        th:href="@{/films/{id}(id=${filmSession.id()})}">
+                            <a class="h4" th:text="${#temporals.format(filmSession.getStartTime(), 'dd/MM/yyyy HH:mm')}"
+                                        th:href="@{/films/{id}(id=${filmSession.getId()})}">
                             </a>
                         </row>
                         </br>
                         <br>
                             <row>
                                 <span>from </span>
-                                <span th:text="${filmSession.price()}"></span><span>$</span>
+                                <span th:text="${filmSession.getPrice()}"></span><span>$</span>
                             </row>
                         </br>
                         <p>
                             <row>
                                 <span> Hall </span>
-                                <span th:text="${filmSession.hallId()}"></span>
+                                <span th:text="${filmSession.getHallId()}"></span>
                                 <span> • </span>
-                                <span th:text="${filmSession.hallName()}"></span>
+                                <span th:text="${filmSession.getHallName()}"></span>
                             </row>
                         </p>
                     </td>

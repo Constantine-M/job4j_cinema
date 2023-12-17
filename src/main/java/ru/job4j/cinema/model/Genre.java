@@ -1,7 +1,26 @@
 package ru.job4j.cinema.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Map;
 
+/**
+ * Большая часть кода модели
+ * (геттеры, сеттеры, Equals and HashCode)
+ * была сгенерирована с помощью
+ * бибилиотеки Lombok.
+ *
+ * Это было сделано, чтобы код
+ * помещался на 1 страницу для
+ * удобства чтения и, одновременно
+ * с этим, не был перегружен
+ * аннотациями.
+ */
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Genre {
 
     /**
@@ -17,50 +36,8 @@ public class Genre {
             "name", "name"
     );
 
+    @EqualsAndHashCode.Include
     private int id;
 
     private String name;
-
-    public Genre(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public int id() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String name() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Genre genre)) {
-            return false;
-        }
-
-        if (id != genre.id) {
-            return false;
-        }
-        return name.equals(genre.name);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
-        return result;
-    }
 }

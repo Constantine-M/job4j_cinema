@@ -1,13 +1,26 @@
 package ru.job4j.cinema.service.session;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.dto.FilmSessionDto;
+import ru.job4j.cinema.mapper.FilmMapper;
+import ru.job4j.cinema.mapper.FilmSessionMapper;
 import ru.job4j.cinema.repository.film.FilmRepository;
 import ru.job4j.cinema.repository.session.FilmSessionRepository;
 import ru.job4j.cinema.repository.hall.HallRepository;
 
 import java.util.Collection;
 
+/**
+ * В данном классе для преобразования
+ * сущности в DTO используем библиотеку
+ * MapStruct.
+ *
+ * Для каждого объекта DTO был
+ * написан свой маппер.
+ * Здесь это {@link FilmSessionMapper}.
+ */
+@AllArgsConstructor
 @Service
 public class SimpleFilmSessionService implements FilmSessionService {
 
@@ -17,28 +30,17 @@ public class SimpleFilmSessionService implements FilmSessionService {
 
     private final HallRepository hallRepository;
 
-    public SimpleFilmSessionService(FilmSessionRepository filmSessionRepository,
-                                    FilmRepository filmRepository,
-                                    HallRepository hallRepository) {
-
-        this.filmSessionRepository = filmSessionRepository;
-        this.filmRepository = filmRepository;
-        this.hallRepository = hallRepository;
-    }
+    private final FilmSessionMapper filmSessionMapper;
 
     @Override
     public Collection<FilmSessionDto> findAll() {
         var filmSessionList = filmSessionRepository.findAll();
         var filmSessionDtoList = filmSessionList.stream()
-                .map(filmSession -> new FilmSessionDto.FilmSessionDtoBuilder()
-                        .id(filmSession.id())
-                        .filmName(filmRepository.findById(filmSession.filmId()).name())
-                        .startTime(filmSession.startTime())
-                        .endTime(filmSession.endTime())
-                        .price(filmSession.price())
-                        .hallId(filmSession.hallId())
-                        .hallName(hallRepository.findById(filmSession.hallId()).name())
-                        .build())
+                .map(filmSession -> filmSessionMapper.getFilmSessionDto(
+                        filmSession,
+                        filmRepository.findById(filmSession.getFilmId()),
+                        hallRepository.findById(filmSession.getHallId()))
+                )
                 .toList();
         return filmSessionDtoList;
     }
@@ -46,15 +48,8 @@ public class SimpleFilmSessionService implements FilmSessionService {
     @Override
     public FilmSessionDto findById(int id) {
         var filmSession = filmSessionRepository.findById(id);
-        var film = filmRepository.findById(filmSession.filmId());
-        return new FilmSessionDto.FilmSessionDtoBuilder()
-                .id(filmSession.id())
-                .filmName(film.name())
-                .startTime(filmSession.startTime())
-                .endTime(filmSession.endTime())
-                .price(filmSession.price())
-                .hallId(filmSession.hallId())
-                .hallName(hallRepository.findById(filmSession.hallId()).name())
-                .build();
+        var film = filmRepository.findById(filmSession.getFilmId());
+        var hall = hallRepository.findById(filmSession.getHallId());
+        return filmSessionMapper.getFilmSessionDto(filmSession, film, hall);
     }
 }

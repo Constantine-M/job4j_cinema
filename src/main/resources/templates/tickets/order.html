@@ -42,10 +42,10 @@
                 <!--  Выражение th:action="@{/tickets/order}" направляет форму к POST запросу /order-->
                 <form class="mt-5" style="font-size: 16px" th:action="@{/tickets/order}" method="post">
                     <input type="hidden" name="userId" th:value="${user.id()}">
-                    <input type="hidden" name="sessionId" th:value="${filmSession.id()}">
+                    <input type="hidden" name="sessionId" th:value="${filmSession.getId()}">
                     <br>
                     <div class="mb-3">
-                        <h4 th:text="${filmSession.filmName()}"></h4>
+                        <h4 th:text="${filmSession.getFilmName()}"></h4>
                     </div>
                     <div class="row">
                         <div class="col-6">
@@ -57,10 +57,10 @@
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <span th:text="${filmSession.hallId()}"></span>
+                            <span th:text="${filmSession.getHallId()}"></span>
                         </div>
                         <div class="col-6">
-                            <span th:text="${#temporals.format(filmSession.startTime(), 'dd/MM/yyyy HH:mm')}"></span>
+                            <span th:text="${#temporals.format(filmSession.getStartTime(), 'dd/MM/yyyy HH:mm')}"></span>
                         </div>
                     </div>
                     <br>
@@ -74,19 +74,19 @@
                         <div class="col-6">
                             <select class="form-select w-100" id="row" name="rowNumber" type="number" >
                                 <option selected disabled>Select row</option>
-                                <option th:each="i : ${#numbers.sequence(1, hall.rowCount())}" th:value="${i}" th:text="${i}"></option>
+                                <option th:each="i : ${#numbers.sequence(1, hall.getRowCount())}" th:value="${i}" th:text="${i}"></option>
                             </select>
                         </div>
                         <div class="col-6">
                             <select class="form-select w-100" id="place" name="placeNumber" type="number">
                                 <option selected disabled>Select seat number</option>
-                                <option th:each="i : ${#numbers.sequence(1, hall.placeCount())}" th:value="${i}" th:text="${i}"></option>
+                                <option th:each="i : ${#numbers.sequence(1, hall.getPlaceCount())}" th:value="${i}" th:text="${i}"></option>
                             </select>
                         </div>
                     </div>
                     <div class="mb-3">
                         <span>Price: </span>
-                        <span th:text="${filmSession.price()}"></span>
+                        <span th:text="${filmSession.getPrice()}"></span>
                         <span>$</span>
                     </div>
                     <div class="mb-3 row">

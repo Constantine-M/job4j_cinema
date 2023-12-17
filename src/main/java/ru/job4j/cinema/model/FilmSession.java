@@ -1,8 +1,25 @@
 package ru.job4j.cinema.model;
 
+import lombok.*;
+
 import java.time.LocalDateTime;
 import java.util.Map;
 
+/**
+ * Большая часть кода модели
+ * (геттеры, сеттеры, Equals and HashCode)
+ * была сгенерирована с помощью
+ * бибилиотеки Lombok.
+ *
+ * Это было сделано, чтобы код
+ * помещался на 1 страницу для
+ * удобства чтения и, одновременно
+ * с этим, не был перегружен
+ * аннотациями.
+ */
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class FilmSession {
 
     /**
@@ -22,6 +39,7 @@ public class FilmSession {
             "price", "price"
     );
 
+    @EqualsAndHashCode.Include
     private int id;
 
     private int filmId;
@@ -41,70 +59,5 @@ public class FilmSession {
         this.startTime = startTime;
         this.endTime = endTime;
         this.price = price;
-    }
-
-    public int id() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int filmId() {
-        return filmId;
-    }
-
-    public void setFilmId(int filmId) {
-        this.filmId = filmId;
-    }
-
-    public int hallId() {
-        return hallId;
-    }
-
-    public void setHallId(int hallId) {
-        this.hallId = hallId;
-    }
-
-    public LocalDateTime startTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalDateTime endTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
-
-    public int price() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof FilmSession that)) {
-            return false;
-        }
-
-        return id == that.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return id;
     }
 }
